@@ -1,48 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { logo } from "./assests/indes";
+export const IMG_CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
 
-/*
-   Header
-     - Logo
-     - NavItems
-     - Cart
-   Body
-     - Search Bar
-     - RestaurantList
-       - RestaurantCard
-         - Image
-         - Name
-         - Rating
-         - Cuisines
-   Footer
-     - Links
-     - Copyright
-*/
-
-const Title = () => {
-    return (
-        <a href="/">
-        <img  className="logo" src={logo} alt="logo" />
-        </a>
-    );
-}
-
-const Header = () =>(
-    <div className="header">
-        <Title />
-        <div className="nav-items">
-            <ul>
-                <li>Home</li>
-                <li>About</li>
-                <li>Contact</li>
-                <li>Cart</li>
-            </ul>
-        </div>
-    </div>    
-)
-
-const restrauntList = [
+export const restrauntList = [
     {
       type: "restaurant",
       data: {
@@ -774,75 +732,9 @@ const restrauntList = [
     },
   ];
 
-//Destructuring  
-
-// const RestaurantCard = ({ restaurant }) => {
-//     return (
-//     <div className="card">
-//       <img src={
-//         "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + 
-//         restaurant.data?.cloudinaryImageId} alt="restaurant-logo" />
-//       <h2>{restaurant.data?.name}</h2>
-//       <h3>{restaurant.data?.cuisines.join(", ")}</h3>
-//       <h4>{restaurant.data?.lastMileTravelString}</h4>
-//     </div>
-//     )
-// };
-
-//Another Way
-const RestaurantCard = ({ name, cuisines, cloudinaryImageId, lastMileTravelString }) => {
-    return (
-     <div className="card">
-         <img src={
-          "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + 
-          cloudinaryImageId} alt="restaurant-logo" />
-         <h2>{name}</h2>
-         <h3>{cuisines.join(", ")}</h3>
-         <h4>{lastMileTravelString}</h4>
-      </div>  
-    )
-}
-
-// const RestaurantCard = (props) => {
-//     return (
-//     <div className="card">
-//       <img src={
-//         "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + 
-//         props.restaurant.data?.cloudinaryImageId} alt="restaurant-logo" />
-//       <h2>{props.restaurant.data?.name}</h2>
-//       <h3>{props.restaurant.data?.cuisines.join(", ")}</h3>
-//       <h4>{props.restaurant.data?.lastMileTravelString}</h4>
-//     </div>
-//     )
-// };
-
-const Body = () => {
-    return (
-       
-        <div className="restaurant-list">
-             {
-                restrauntList.map((restaurant) => {
-                  return <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
-                  }
-                )
-           }
-        </div>
-    )
-}
-
-const Footer = () => (
-    <h4>Footer</h4>
-)
-
-const AppLayout = () => (
-    <>
-    <Header />
-    <Body />
-    <Footer />
-    </>
-)
-
-
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
+export function filterData(searchInput, restaurants){
+    const filterRestaurant = restaurants.filter((restaurant) => 
+      restaurant.data.name.includes(searchInput)
+    );
+    return filterRestaurant;
+}  
